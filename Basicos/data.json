@@ -1,0 +1,15 @@
+{
+    "string": "Valdir",
+    "number": "20",
+    "boolean": "true",
+    "array": [
+        "Run",
+        "Programming",
+        "cook"
+    ],
+    "object": {
+        "facebook": "Valdir Contreras",
+        "email": "valdircontreras@hola.com"
+    },
+    "null": null
+}
