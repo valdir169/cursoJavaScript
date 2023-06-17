@@ -1,4 +1,5 @@
 const colores = ["Red", "Yellow", "Green"];
+mjnfs
 
 /* .lenght 
         - Nos permite concoer la cantidad de elemtos 
