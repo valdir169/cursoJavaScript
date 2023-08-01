@@ -1,0 +1,71 @@
+{
+  "drivers": [
+    {
+      "id": 1,
+      "name": "lewis Hamilton",
+      "nationality": "Britain",
+      "age": "38",
+      "team": "Mercedes AMG PETRONAS"
+    },
+    {
+      "id": 2,
+      "name": "Max Verstappen",
+      "nationality": "Neerlandes",
+      "age": "25",
+      "team": "Red Bull Racing"
+    },
+    {
+      "id": 3,
+      "name": "George Russel",
+      "nationality": "Britain",
+      "age": "22",
+      "team": "Mercedes AMG PETRONAS"
+    },
+    {
+      "id": 4,
+      "name": "Sergio Perez",
+      "nationality": "Mexican",
+      "age": "38",
+      "team": "Red Bull Racing"
+    },
+    {
+      "id": 5,
+      "name": "Fernando Alonso",
+      "nationality": "Espanish",
+      "age": "42",
+      "team": "Aston Martin F1 TEAM"
+    }
+  ],
+  "teams": [
+    {
+      "id": 1,
+      "name": "Aston Martin",
+      "nationality": "Britain",
+      "fullName": "Aston Martin F1 TEAM"
+    },
+    {
+      "id": 2,
+      "name": "Red Bull Racing",
+      "nationality": "Austrian",
+      "Full Name": "Red Bull Racing TEAM"
+    },
+    {
+      "id": 3,
+      "name": "Mercedes AMG",
+      "nationality": "Britain",
+      "Full Name": "Mercedes AMG PETRONAS TEAM"
+    },
+    {
+      "id": 4,
+      "name": "McLaren",
+      "nationality": "Britain",
+      "Full Name": "McLaren F1 TEAM"
+    },
+    {
+      "id": 5,
+      "name": "ALPINE",
+      "nationality": "FRANCES",
+      "Full Name": "ALPINE ONE TEAM"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,7 +10,7 @@
     margin: auto;
     gap: 3rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    padding: 60px   ;
+    padding: 60px;
 }
 
 .post__container {
@@ -39,4 +39,28 @@
     text-align: center;
     font-weight: 500;
     line-height: 1.5;
+}
+
+.photos__container {
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    height: auto;
+    box-sizing: border-box
+}
+
+.photos {
+    width: 300px;
+    /* border: 2px solid black; */
+    border-radius: 10px;
+}
+
+.photos__img {
+    width: 100%;
+    height: 100%;
 }
