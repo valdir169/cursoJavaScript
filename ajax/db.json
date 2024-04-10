@@ -4,36 +4,57 @@
       "id": 1,
       "name": "lewis Hamilton",
       "nationality": "Britain",
-      "age": "38",
+      "age": 38,
       "team": "Mercedes AMG PETRONAS"
     },
     {
       "id": 2,
       "name": "Max Verstappen",
       "nationality": "Neerlandes",
-      "age": "25",
+      "age": 25,
       "team": "Red Bull Racing"
     },
     {
       "id": 3,
       "name": "George Russel",
       "nationality": "Britain",
-      "age": "22",
+      "age": 22,
       "team": "Mercedes AMG PETRONAS"
     },
     {
       "id": 4,
       "name": "Sergio Perez",
       "nationality": "Mexican",
-      "age": "38",
+      "age": 38,
       "team": "Red Bull Racing"
     },
     {
       "id": 5,
       "name": "Fernando Alonso",
       "nationality": "Espanish",
-      "age": "42",
+      "age": 42,
       "team": "Aston Martin F1 TEAM"
+    },
+    {
+      "name": "Charles Leclerc",
+      "nationality": "Monaco",
+      "age": "25",
+      "team": "Ferrari",
+      "id": 6
+    },
+    {
+      "name": "Yuki Tsunoda",
+      "nationality": "Japon",
+      "age": "20",
+      "team": "Alpha Tauri",
+      "id": 7
+    },
+    {
+      "name": "Carlos Sainz",
+      "nationality": "España",
+      "age": "30",
+      "team": "Ferrari F1 TEAM",
+      "id": 8
     }
   ],
   "teams": [
@@ -44,28 +65,28 @@
       "fullName": "Aston Martin F1 TEAM"
     },
     {
-      "id": 2,
       "name": "Red Bull Racing",
-      "nationality": "Austrian",
-      "Full Name": "Red Bull Racing TEAM"
+      "nationality": "Hola",
+      "fullName": "Red Bull Racing TEAM",
+      "id": 2
     },
     {
       "id": 3,
       "name": "Mercedes AMG",
       "nationality": "Britain",
-      "Full Name": "Mercedes AMG PETRONAS TEAM"
+      "fullName": "Mercedes AMG PETRONAS TEAM"
     },
     {
       "id": 4,
       "name": "McLaren",
       "nationality": "Britain",
-      "Full Name": "McLaren F1 TEAM"
+      "fullName": "McLaren F1 TEAM"
     },
     {
       "id": 5,
       "name": "ALPINE",
       "nationality": "FRANCES",
-      "Full Name": "ALPINE ONE TEAM"
+      "fullName": "ALPINE ONE TEAM"
     }
   ]
 }

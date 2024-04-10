@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD API REST FETCH</title>
+</head>
+
+<body>
+    <h1>CRUD API REST FETCH</h1>
+    <section class="crud">
+        <article>
+            <h2 class="crud-title">Agregar Team</h2>
+            <form action="" class="crud-form">
+                <input type="text" name="name" placeholder="Nombre" required> <br>
+                <input type="text" name="nationality" placeholder="Nacionalidad" required> <br>
+                <input type="text" name="fullName" placeholder="Nombre COmpleto" required> <br>
+                <input type="submit" value="Send">
+                <input type="hidden" name="id">
+            </form>
+        </article>
+
+        <article>
+            <h2>VER PILOTOS</h2>
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nationalidad</th>
+                        <th>Nombre Completo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </article>
+    </section>
+
+    <template id="crud-template">
+        <tr>
+            <td class="name"></td>
+            <td class="nationality"></td>
+            <td class="fullName"></td>
+            <td>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </td>
+        </tr>
+    </template>
+
+    <!-- <script src="js/crudAjax.js"></script> -->
+
+    <script>
+        const d = document,
+            $table = d.querySelector(".crud-table"),
+            $form = d.querySelector(".crud-form"),
+            $title = d.querySelector(".crud-title"),
+            $template = d.getElementById("crud-template").content,
+            $fragment = d.createDocumentFragment();
+
+
+        const getAll = async () => {
+            try {
+                let res = await fetch("http://localhost:3000/teams"),
+                    json = await res.json();
+
+                if (!res.ok) throw { status: res.status, status: res.statusText };
+                console.log(json);
+
+                json.forEach(el => {
+                    $template.querySelector(".delete").dataset.id = el.id;
+                    $template.querySelector(".name").textContent = el.name;
+                    $template.querySelector(".nationality").textContent = el.nationality;
+                    $template.querySelector(".fullName").textContent = el.fullName;
+
+                    // variables for the buttons
+                    $template.querySelector(".edit").dataset.id = el.id;
+                    $template.querySelector(".edit").dataset.name = el.name;
+                    $template.querySelector(".edit").dataset.nationality = el.nationality;
+                    $template.querySelector(".edit").dataset.fullName = el.fullName;
+
+
+                    let clone = d.importNode($template, true);
+                    $fragment.appendChild(clone);
+                })
+
+                $table.querySelector("tbody").appendChild($fragment);
+            } catch (err) {
+                let message = err.statusText || "Ocurrió un error";
+                $table.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`)
+            }
+        }   
+
+        d.addEventListener("DOMContentLoaded", getAll);
+
+        d.addEventListener("submit", async e => {
+            if (e.target === $form) {
+                e.preventDefault();
+
+                if (!e.target.id.value) {
+                    //  CREATE POST
+                    try {
+                        let options = {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8"
+                            },
+                            body: JSON.stringify({
+                                name: e.target.name.value,
+                                nationality: e.target.nationality.value,
+                                fullName: e.target.fullName.value,
+                            })
+                        },
+                            res = await fetch("http://localhost:3000/teams", options),
+                            json = await res.json();
+
+                        if (!res.ok) throw { status: res.status, status: res.statusText };
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrió un error";
+                        $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`)
+                    }
+                } else {
+                    // UPDATE PUT
+                    try {
+                        let options = {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8"
+                            },
+                            body: JSON.stringify({
+                                name: e.target.name.value,
+                                nationality: e.target.nationality.value,
+                                fullName: e.target.fullName.value,
+                            })
+                        },
+                            res = await fetch(`http://localhost:3000/teams/${e.target.id.value}`, options),
+                            json = await res.json();
+
+                        if (!res.ok) throw { status: res.status, status: res.statusText };
+                        location.reload();
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrió un error";
+                        $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`)
+                    }
+                }
+            }
+        })
+
+
+        d.addEventListener('click', async e => {
+            if (e.target.matches(".edit")) {
+                $title.textContent = "Editar Team";
+
+                $form.name.value = e.target.dataset.name;
+                $form.nationality.value = e.target.dataset.nationality;
+                $form.fullName.value = e.target.dataset.fullName;
+                $form.id.value = e.target.dataset.id;
+
+            }
+
+
+            if (e.target.matches(".delete")) {
+                let isDelete = confirm(`En realidad desea eliminar este team ${e.target.dataset.id}`)
+
+                if (isDelete) {
+                    try {
+                        let options = {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8"
+                            }
+                        },
+                            res = await fetch(`http://localhost:3000/teams/${e.target.dataset.id}`, options),
+                            json = await res.json();
+
+                        if (!res.ok) throw { status: res.status, status: res.statusText };
+                        location.reload();
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrió un error";
+                        alert(`Error ${err.status}:${message}`)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

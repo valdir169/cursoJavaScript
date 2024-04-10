@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD API REST AJAX</title>
+</head>
+
+<body>
+    <h1>CRUD API REST AJAX</h1>
+    <section class="crud">
+        <article>
+            <h2 class="crud-title">Agregar Driver</h2>
+            <form action="" class="crud-form">
+                <input type="text" name="name" placeholder="Nombre" required> <br>
+                <input type="text" name="nationality" placeholder="Nacionalidad" required> <br>
+                <input type="number" name="age" placeholder="Edad" required> <br>
+                <input type="text" name="team" placeholder="Equipo" required> <br>
+                <input type="submit" value="Send">
+                <input type="hidden" name="id">
+            </form>
+        </article>
+
+        <article>
+            <h2>VER PILOTOS</h2>
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nacionalidad</th>
+                        <th>Edad</th>
+                        <th>Equipo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </article>
+    </section>
+
+    <template id="crud-template">
+        <tr>
+            <td class="name"></td>
+            <td class="nationality"></td>
+            <td class="age"></td>
+            <td class="team"></td>
+            <td>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </td>
+        </tr>
+    </template>
+
+    <script src="js/crudAjax.js"></script>
+</body>
+</html>
+

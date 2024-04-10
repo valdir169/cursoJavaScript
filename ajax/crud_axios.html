@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD API REST AXIOS</title>
+</head>
+
+<body>
+    <h1>CRUD API REST AXIOS</h1>
+    <section class="crud">
+        <article>
+            <h2 class="crud-title">Agregar Driver</h2>
+            <form action="" class="crud-form">
+                <input type="text" name="name" placeholder="Nombre" required> <br>
+                <input type="text" name="nationality" placeholder="Nacionalidad" required> <br>
+                <input type="text" name="age" placeholder="Edad" required> <br>
+                <input type="text" name="team" placeholder="Equipo" required> <br>
+                <input type="submit" value="Send">
+                <input type="hidden" name="id">
+            </form>
+        </article>
+
+        <article>
+            <h2>VER PILOTOS</h2>
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nationalidad</th>
+                        <th>Edad</th>
+                        <th>Equipo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </article>
+    </section>
+
+    <template id="crud-template">
+        <tr>
+            <td class="name"></td>
+            <td class="nationality"></td>
+            <td class="age"></td>
+            <td class="team"></td>
+            <td>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </td>
+        </tr>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        const d = document,
+            $table = d.querySelector(".crud-table"),
+            $form = d.querySelector(".crud-form"),
+            $title = d.querySelector(".crud-title"),
+            $template = d.getElementById("crud-template").content,
+            $fragment = d.createDocumentFragment();
+
+        const getAll = async () => {
+            try {
+                let res = await axios.get("http://localhost:3000/drivers"),
+                    json = await res.data;
+                console.log(json);
+
+
+                json.forEach(el => {
+                    $template.querySelector(".delete").dataset.id = el.id;
+                    $template.querySelector(".name").textContent = el.name;
+                    $template.querySelector(".nationality").textContent = el.nationality;
+                    $template.querySelector(".age").textContent = el.age;
+                    $template.querySelector(".team").textContent = el.team;
+
+                    // variables for the buttons
+                    $template.querySelector(".edit").dataset.id = el.id;
+                    $template.querySelector(".edit").dataset.name = el.name;
+                    $template.querySelector(".edit").dataset.nationality = el.nationality;
+                    $template.querySelector(".edit").dataset.age = el.age;
+                    $template.querySelector(".edit").dataset.team = el.team;
+
+                    let clone = d.importNode($template, true);
+                    $fragment.appendChild(clone);
+                })
+
+                $table.querySelector("tbody").appendChild($fragment);
+
+            } catch (err) {
+                let message = err.statusText || "Cosurrió un error";
+                $table.insertAdjacentHTML("afterend", `<p><b>Error: ${err.status}: ${message}</b></p>`)
+            }
+        }
+
+        d.addEventListener("DOMContentLoaded", getAll);
+
+
+        /* d.addEventListener("submit", async e => {
+            if (e.target === $form) {
+                e.preventDefault();
+
+                if (!e.target.id.value) {
+                    //METHOD POST
+
+                    try {
+                        let options = {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8"
+                            },
+                            data: JSON.stringify({
+                                name: e.target.name.value,
+                                nationality: e.target.nationality.value,
+                                age: e.target.age.value,
+                                team: e.target.team.value
+                            })
+                        },
+                            res = await axios("http://localhost:3000/drivers", options),
+                            json = await res.data;
+
+                        location.reload();
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrió un error";
+                        $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`)
+                    }
+
+
+
+                } else {
+                    //METHOD PUT
+
+                    try {
+                        let options = {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8"
+                            },
+                            data: JSON.stringify({
+                                name: e.target.name.value,
+                                nationality: e.target.nationality.value,
+                                age: e.target.age.value,
+                                team: e.target.team.value
+                            })
+                        },
+                            res = await axios(`http://localhost:3000/drivers/${e.target.id.value}`, options),
+                            json = await res.data;
+
+                        location.reload();
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrió un error";
+                        $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}:${message}</b></p>`)
+                    }
+
+                }
+            }
+        }) */
+
+/* 
+        d.addEventListener("click", async e => {
+            if (e.target.matches(".edit")) {
+                $title.textContent = "Editar Piloto";
+
+                $form.name.value = e.target.dataset.name;
+                $form.nationality.value = e.target.dataset.nationality;
+                $form.age.value = e.target.dataset.age;
+                $form.team.value = e.target.dataset.team;
+                $form.id.value = e.target.dataset.id;
+            }
+
+            if (e.target.matches(".delete")) {
+                let isDelete = confirm(`En realidad desea eliminar este team ${e.target.dataset.id}`)
+
+                if (isDelete) {
+                    try {
+                        let options = {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8"
+                            }
+                        },
+                            res = await axios(`http://localhost:3000/drivers/${e.target.dataset.id}`, options),
+                            json = await res.json();
+
+                        location.reload();
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrió un error";
+                        alert(`Error ${err.status}:${message}`)
+                    }
+                }
+            }
+        }) */
+    </script>
+
+</body>
+
+</html>
